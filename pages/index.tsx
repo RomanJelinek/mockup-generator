@@ -109,7 +109,7 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
 
 export default Home;
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const options = {};
   const hovno = await fetch(
     'https://523148753456784:zViZFzElC6tcBUySsSctIs8c_z8@api.cloudinary.com/v1_1/dbzyb6wog/resources/image?&max_results=500"'
