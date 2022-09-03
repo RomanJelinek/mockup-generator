@@ -1,7 +1,7 @@
+import axios from 'axios';
 import type { NextPage } from 'next';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Mockup1 } from '../Components/Mockup1';
-import { toPng } from 'html-to-image';
 import Settings from '../Components/Settings';
 import Xml from '../Components/Xml';
 
@@ -15,20 +15,28 @@ interface ImgDataProps {
   data: ImgData[];
 }
 
-const Home: NextPage<ImgDataProps> = ({ data }) => {
-  const [imagesList, setImagesList] = useState<ImgData[]>(data);
-  const [currentImg, setCurrentImg] = useState(data[0].url);
+const Home: NextPage<ImgDataProps> = () => {
+  const [imagesList, setImagesList] = useState<ImgData[]>([]);
+  const [currentImg, setCurrentImg] = useState('');
   const [currentNumber, setCurrentNumber] = useState(0);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      const products = await axios.get('/api/get-images');
+      setImagesList(products.data)
+    };
+    getProducts()
+  }, []);
 
   const delay = 3000;
   const startUploading = () => {
-    for (let i = 0; i < data.length; i++) {
+    for (let i = 0; i < imagesList.length; i++) {
       task(i);
     }
     function task(i: number) {
       setTimeout(function () {
         () => console.log(i);
-        setCurrentImg(data[i].url);
+        setCurrentImg(imagesList[i].url);
         setCurrentNumber(i);
       }, delay * i);
     }
@@ -66,12 +74,14 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
   return (
     <>
       <div style={{ display: 'flex' }}>
-        <Mockup1 url={currentImg} />
-        <Settings
-          imagesList={imagesList}
-          handleImagesListChange={handleImagesListChange}
-          handleBulkChanges={handleBulkChanges}
-        />
+        {<Mockup1 url={currentImg} />}
+        {
+          <Settings
+            imagesList={imagesList}
+            handleImagesListChange={handleImagesListChange}
+            handleBulkChanges={handleBulkChanges}
+          />
+        }
       </div>
       <div
         style={{
@@ -86,44 +96,21 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
         <h4>Průvodce</h4>
         {currentNumber === 0 && (
           <>
-            <p>Aktuálně v cloudu: {data.length}</p>
+            <p>Aktuálně v cloudu: {imagesList?.length}</p>
             <p>Nejdříve u všech položek vyplň vše potřebné</p>
             <button onClick={startUploading}>Začni makat</button>
           </>
         )}
-        {currentNumber > 0 && currentNumber + 1 < data.length && (
+        {currentNumber > 0 && currentNumber + 1 < imagesList?.length && (
           <p>
-            Probíhá příprava mockupů...{currentNumber + 1}/{data.length}
+            Probíhá příprava mockupů...{currentNumber + 1}/{imagesList?.length}
           </p>
         )}
-        {data.length - currentNumber < 2 && (
-          <p>
-            <p>
-              Hotovo. Výsledné obrázky najdeš v cloudu. Níže stáhneš XML export.
-              Poté cloud dík
-            </p>
-            <Xml imagesList={imagesList} />
-          </p>
-        )}
+
+        <Xml imagesList={imagesList} />
       </div>
     </>
   );
 };
 
 export default Home;
-
-export async function getStaticProps() {
-  const result = await fetch(
-    'https://523148753456784:zViZFzElC6tcBUySsSctIs8c_z8@api.cloudinary.com/v1_1/dbzyb6wog/resources/image?&max_results=500"'
-  ).then((r) => r.json());
-
-  const filteredData = result.resources.map((img: any) => {
-    return { url: img.url, title: '', category: '' };
-  });
-
-  return {
-    props: {
-      data: filteredData,
-    },
-  };
-}

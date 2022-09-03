@@ -1,7 +1,6 @@
+import { toPng, toJpeg } from 'html-to-image';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import * as htmlToImage from 'html-to-image';
-import domtoimage from 'dom-to-image';
 
 export interface IAppProps {}
 
@@ -13,22 +12,27 @@ export const Mockup1: React.FC<any> = ({ url }) => {
     url && onButtonClick();
   }, [url]);
 
-  const onButtonClick = () => {
- 
-   domtoimage
-     .toJpeg(document.getElementById('print'), { quality: 0.95 })
-     .then(function (dataUrl) {
-       var link = document.createElement('a');
-       link.download = 'my-image-name.jpeg';
-       link.href = dataUrl;
-       link.click();
-     });
+   const onButtonClick = useCallback(() => {
+     if (ref.current === null) {
+       return;
+     }
 
-  };
+     toJpeg(ref.current, { cacheBust: true })
+       .then((dataUrl) => {
+         const link = document.createElement('a');
+         link.download = 'my-image-name.jpg';
+         link.href = dataUrl;
+         link.click();
+       })
+       .catch((err) => {
+         console.log(err);
+       });
+   }, [ref]);
+   
 
   return (
     <div style={{ display: 'flex', flex: '3' }}>
-      <div id="print"  style={{ height: '600px', width: '532px' }}>
+      <div ref={ref} style={{ height: '600px', width: '532px' }}>
         <img
           src="/img/mockups/mockup1black.png"
           style={{

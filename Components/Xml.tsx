@@ -10,178 +10,180 @@ interface XmlProps {
 const Xml: React.FC<XmlProps> = ({ imagesList }) => {
   let feedObj: any = [];
 
-  for (let i = 0; i < imagesList.length; i++) {}
-  imagesList.forEach((img) => {
-    const obj = {
-      SHOPITEM: {
-        '@id': img.url, //todo
-        NAME: { '#text': 'jméno' }, //todo
-        SHORT_DESCRIPTION: { '#text': 'Krátký popisek' }, //todo
-        DESCRIPTION: { '#text': DESCRIPTION },
-        MANUFACTURER: { '#text': 'Pixada' },
-        ITEM_TYPE: { '#text': 'product' },
-        UNIT: { '#text': 'ks' },
-        IMAGES: {
-          IMAGE: { '#text': 'IMG' }, //todo
+  if (imagesList.length > 0) {
+    for (let i = 0; i < imagesList.length; i++) {}
+    imagesList.forEach((img) => {
+      const obj = {
+        SHOPITEM: {
+          '@id': img.url, //todo
+          NAME: { '#text': 'jméno' }, //todo
+          SHORT_DESCRIPTION: { '#text': 'Krátký popisek' }, //todo
+          DESCRIPTION: { '#text': DESCRIPTION },
+          MANUFACTURER: { '#text': 'Pixada' },
+          ITEM_TYPE: { '#text': 'product' },
+          UNIT: { '#text': 'ks' },
+          IMAGES: {
+            IMAGE: { '#text': 'IMG' }, //todo
+          },
+          CATEGORIES: {
+            CATEGORY: { '#text': 'Kategorie' }, //todo
+          },
+          VISIBILITY: { '#text': 'visible' },
+          SEO_TITLE: { '#text': 'SEO POPIS' }, //todo
+          META_DESCRIPTION: { '#text': 'META' }, //todo
+          VARIANTS: {
+            VARIANT: {
+              STOCK: {
+                AMOUNT: { '#text': 1000 },
+              },
+              CODE: { '#text': 'ID/A3/PLA' }, // TODO
+              WEIGHT: { '#text': 1 },
+              CURRENCY: { '#text': 'CZK' },
+              VAT: { '#text': 21 },
+              PRICE_VAT: { '#text': 349 },
+              AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
+              VISIBLE: { '#text': 1 },
+              FIRMY_CZ: { '#text': 1 },
+              PARAMETERS: {
+                VLASTNOST1: {
+                  NAME: { '#text': 'Velikost' },
+                  VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
+                },
+                VLASTNOST2: {
+                  NAME: { '#text': 'Volba rámu' },
+                  VALUE: { '#text': 'plakát bez rámu' }, // CHANGES
+                },
+              },
+            },
+            VARIANT1: {
+              STOCK: {
+                AMOUNT: { '#text': 1000 },
+              },
+              CODE: { '#text': 'ID/A3/S' }, // TODO
+              WEIGHT: { '#text': 1 },
+              CURRENCY: { '#text': 'CZK' },
+              VAT: { '#text': 21 },
+              PRICE_VAT: { '#text': 699 },
+              AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
+              VISIBLE: { '#text': 1 },
+              FIRMY_CZ: { '#text': 1 },
+              IMAGE_REF: { '#text': 'image url' }, // TODO
+              PARAMETERS: {
+                VLASTNOST1: {
+                  NAME: { '#text': 'Velikost' },
+                  VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
+                },
+                VLASTNOST2: {
+                  NAME: { '#text': 'Volba rámu' },
+                  VALUE: { '#text': 's černým rámem' }, // CHANGES
+                },
+              },
+            },
+            VARIANT2: {
+              STOCK: {
+                AMOUNT: { '#text': 1000 },
+              },
+              CODE: { '#text': 'ID/A3/S2' }, // TODO
+              WEIGHT: { '#text': 1 },
+              CURRENCY: { '#text': 'CZK' },
+              VAT: { '#text': 21 },
+              PRICE_VAT: { '#text': 699 },
+              AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
+              IMAGE_REF: { '#text': 'URL' }, // TODO
+              VISIBLE: { '#text': 1 },
+              FIRMY_CZ: { '#text': 1 },
+              PARAMETERS: {
+                VLASTNOST1: {
+                  NAME: { '#text': 'Velikost' },
+                  VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
+                },
+                VLASTNOST2: {
+                  NAME: { '#text': 'Volba rámu' },
+                  VALUE: { '#text': 's bílým rámem' }, // CHANGES
+                },
+              },
+            },
+            VARIANT3: {
+              STOCK: {
+                AMOUNT: { '#text': 1000 },
+              },
+              CODE: { '#text': 'ID/B2/PLA' }, // TODO
+              WEIGHT: { '#text': 1 },
+              CURRENCY: { '#text': 'CZK' },
+              VAT: { '#text': 21 },
+              PRICE_VAT: { '#text': 599 },
+              AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
+              VISIBLE: { '#text': 1 },
+              FIRMY_CZ: { '#text': 1 },
+              PARAMETERS: {
+                VLASTNOST1: {
+                  NAME: { '#text': 'Velikost' },
+                  VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
+                },
+                VLASTNOST2: {
+                  NAME: { '#text': 'Volba rámu' },
+                  VALUE: { '#text': 'plakát bez rámu' }, // CHANGES
+                },
+              },
+            },
+            VARIANT4: {
+              STOCK: {
+                AMOUNT: { '#text': 1000 },
+              },
+              CODE: { '#text': 'ID/B2/S' }, // TODO
+              WEIGHT: { '#text': 1 },
+              CURRENCY: { '#text': 'CZK' },
+              VAT: { '#text': 21 },
+              PRICE_VAT: { '#text': 1049 },
+              AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
+              IMAGE_REF: { '#text': 'URL' }, //TODO
+              VISIBLE: { '#text': 1 },
+              FIRMY_CZ: { '#text': 1 },
+              PARAMETERS: {
+                VLASTNOST1: {
+                  NAME: { '#text': 'Velikost' },
+                  VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
+                },
+                VLASTNOST2: {
+                  NAME: { '#text': 'Volba rámu' },
+                  VALUE: { '#text': 's černým rámem' }, // CHANGES
+                },
+              },
+            },
+            VARIANT5: {
+              STOCK: {
+                AMOUNT: { '#text': 1000 },
+              },
+              CODE: { '#text': 'ID/B2/S2' }, // TODO
+              WEIGHT: { '#text': 1 },
+              CURRENCY: { '#text': 'CZK' },
+              VAT: { '#text': 21 },
+              PRICE_VAT: { '#text': 1049 },
+              AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
+              IMAGE_REF: { '#text': 'URL' }, //TODO
+              VISIBLE: { '#text': 1 },
+              FIRMY_CZ: { '#text': 1 },
+              PARAMETERS: {
+                VLASTNOST1: {
+                  NAME: { '#text': 'Velikost' },
+                  VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
+                },
+                VLASTNOST2: {
+                  NAME: { '#text': 'Volba rámu' },
+                  VALUE: { '#text': 's bílým rámem' }, // CHANGES
+                },
+              },
+            },
+          },
         },
-        CATEGORIES: {
-          CATEGORY: { '#text': 'Kategorie' }, //todo
-        },
-        VISIBILITY: { '#text': 'visible' },
-        SEO_TITLE: { '#text': 'SEO POPIS' }, //todo
-        META_DESCRIPTION: { '#text': 'META' }, //todo
-        VARIANTS: {
-          VARIANT: {
-            STOCK: {
-              AMOUNT: { '#text': 1000 },
-            },
-            CODE: { '#text': 'ID/A3/PLA' }, // TODO
-            WEIGHT: { '#text': 1 },
-            CURRENCY: { '#text': 'CZK' },
-            VAT: { '#text': 21 },
-            PRICE_VAT: { '#text': 349 },
-            AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-            VISIBLE: { '#text': 1 },
-            FIRMY_CZ: { '#text': 1 },
-            PARAMETERS: {
-              VLASTNOST1: {
-                NAME: { '#text': 'Velikost' },
-                VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
-              },
-              VLASTNOST2: {
-                NAME: { '#text': 'Volba rámu' },
-                VALUE: { '#text': 'plakát bez rámu' }, // CHANGES
-              },
-            },
-          },
-          VARIANT1: {
-            STOCK: {
-              AMOUNT: { '#text': 1000 },
-            },
-            CODE: { '#text': 'ID/A3/S' }, // TODO
-            WEIGHT: { '#text': 1 },
-            CURRENCY: { '#text': 'CZK' },
-            VAT: { '#text': 21 },
-            PRICE_VAT: { '#text': 699 },
-            AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-            VISIBLE: { '#text': 1 },
-            FIRMY_CZ: { '#text': 1 },
-            IMAGE_REF: { '#text': 'image url' }, // TODO
-            PARAMETERS: {
-              VLASTNOST1: {
-                NAME: { '#text': 'Velikost' },
-                VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
-              },
-              VLASTNOST2: {
-                NAME: { '#text': 'Volba rámu' },
-                VALUE: { '#text': 's černým rámem' }, // CHANGES
-              },
-            },
-          },
-          VARIANT2: {
-            STOCK: {
-              AMOUNT: { '#text': 1000 },
-            },
-            CODE: { '#text': 'ID/A3/S2' }, // TODO
-            WEIGHT: { '#text': 1 },
-            CURRENCY: { '#text': 'CZK' },
-            VAT: { '#text': 21 },
-            PRICE_VAT: { '#text': 699 },
-            AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-            IMAGE_REF: { '#text': 'URL' }, // TODO
-            VISIBLE: { '#text': 1 },
-            FIRMY_CZ: { '#text': 1 },
-            PARAMETERS: {
-              VLASTNOST1: {
-                NAME: { '#text': 'Velikost' },
-                VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
-              },
-              VLASTNOST2: {
-                NAME: { '#text': 'Volba rámu' },
-                VALUE: { '#text': 's bílým rámem' }, // CHANGES
-              },
-            },
-          },
-          VARIANT3: {
-            STOCK: {
-              AMOUNT: { '#text': 1000 },
-            },
-            CODE: { '#text': 'ID/B2/PLA' }, // TODO
-            WEIGHT: { '#text': 1 },
-            CURRENCY: { '#text': 'CZK' },
-            VAT: { '#text': 21 },
-            PRICE_VAT: { '#text': 599 },
-            AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-            VISIBLE: { '#text': 1 },
-            FIRMY_CZ: { '#text': 1 },
-            PARAMETERS: {
-              VLASTNOST1: {
-                NAME: { '#text': 'Velikost' },
-                VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
-              },
-              VLASTNOST2: {
-                NAME: { '#text': 'Volba rámu' },
-                VALUE: { '#text': 'plakát bez rámu' }, // CHANGES
-              },
-            },
-          },
-          VARIANT4: {
-            STOCK: {
-              AMOUNT: { '#text': 1000 },
-            },
-            CODE: { '#text': 'ID/B2/S' }, // TODO
-            WEIGHT: { '#text': 1 },
-            CURRENCY: { '#text': 'CZK' },
-            VAT: { '#text': 21 },
-            PRICE_VAT: { '#text': 1049 },
-            AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-            IMAGE_REF: { '#text': 'URL' }, //TODO
-            VISIBLE: { '#text': 1 },
-            FIRMY_CZ: { '#text': 1 },
-            PARAMETERS: {
-              VLASTNOST1: {
-                NAME: { '#text': 'Velikost' },
-                VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
-              },
-              VLASTNOST2: {
-                NAME: { '#text': 'Volba rámu' },
-                VALUE: { '#text': 's černým rámem' }, // CHANGES
-              },
-            },
-          },
-          VARIANT5: {
-            STOCK: {
-              AMOUNT: { '#text': 1000 },
-            },
-            CODE: { '#text': 'ID/B2/S2' }, // TODO
-            WEIGHT: { '#text': 1 },
-            CURRENCY: { '#text': 'CZK' },
-            VAT: { '#text': 21 },
-            PRICE_VAT: { '#text': 1049 },
-            AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-            IMAGE_REF: { '#text': 'URL' }, //TODO
-            VISIBLE: { '#text': 1 },
-            FIRMY_CZ: { '#text': 1 },
-            PARAMETERS: {
-              VLASTNOST1: {
-                NAME: { '#text': 'Velikost' },
-                VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
-              },
-              VLASTNOST2: {
-                NAME: { '#text': 'Volba rámu' },
-                VALUE: { '#text': 's bílým rámem' }, // CHANGES
-              },
-            },
-          },
-        },
-      },
-    };
-    feedObj.push(obj);
-  });
+      };
+      feedObj.push(obj);
+    });
+  }
 
-  const feed = builder.create(feedObj, { encoding: 'utf-8' });
+  const feed = feedObj.length > 0 &&  builder.create(feedObj, { encoding: 'utf-8' });
 
-  const xml = feed.end({ pretty: true });
+  const xml = feedObj.length > 0 && feed.end({ pretty: true });
 
   const addedTags = '<SHOP>' + xml + '</SHOP>';
 
@@ -208,7 +210,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
     .split('VLASTNOST2')
     .join('PARAMETER');
 
-   const downloadXml = () => {
+  const downloadXml = () => {
     var filename = 'file.xml';
     var pom = document.createElement('a');
     var bb = new Blob([finishedXml], { type: 'text/plain' });
