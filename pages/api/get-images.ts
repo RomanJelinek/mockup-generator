@@ -17,6 +17,7 @@ const handler = async (req: any, res: any) => {
     return { url: img.url, title: '', category: '' };
   });
 
-  await res.status(200).json(filteredData);
+   res.status(200).json(filteredData);
 };
+
 export default handler;
