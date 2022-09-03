@@ -22,13 +22,9 @@ const Home: NextPage<ImgDataProps> = () => {
 
   useEffect(() => {
     const getProducts = async () => {
-      axios({
-        method: 'get',
-        url: `/api/get-images`,
-        withCredentials: false,
-      }).then((r) => console.log(r));
+      const products = await axios.get('/api/get-images');
+      setImagesList(products.data)
     };
-
     getProducts()
   }, []);
 
