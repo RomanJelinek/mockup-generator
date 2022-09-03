@@ -12,23 +12,22 @@ export const Mockup1: React.FC<any> = ({ url }) => {
     url && onButtonClick();
   }, [url]);
 
-   const onButtonClick = useCallback(() => {
-     if (ref.current === null) {
-       return;
-     }
+  const onButtonClick = () => {
+    if (ref.current === null) {
+      return;
+    }
 
-     toJpeg(ref.current, { cacheBust: true })
-       .then((dataUrl) => {
-         const link = document.createElement('a');
-         link.download = 'my-image-name.jpg';
-         link.href = dataUrl;
-         link.click();
-       })
-       .catch((err) => {
-         console.log(err);
-       });
-   }, [ref]);
-   
+    toJpeg(ref.current, { cacheBust: true })
+      .then((dataUrl) => {
+        const link = document.createElement('a');
+        link.download = 'my-image-name.jpg';
+        link.href = dataUrl;
+        link.click();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div style={{ display: 'flex', flex: '3' }}>
