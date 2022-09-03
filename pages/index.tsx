@@ -17,7 +17,7 @@ interface ImgDataProps {
 
 const Home: NextPage<ImgDataProps> = ({ data }) => {
   const [imagesList, setImagesList] = useState<ImgData[]>(data);
-  const [currentImg, setCurrentImg] = useState(null);
+  const [currentImg, setCurrentImg] = useState(data[0].url);
   const [currentNumber, setCurrentNumber] = useState(0);
 
   const delay = 3000;
