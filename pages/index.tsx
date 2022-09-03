@@ -98,7 +98,10 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
         )}
         {data.length - currentNumber < 2 && (
           <p>
-            <p>Hotovo. Výsledné obrázky najdeš v cloudu. Níže stáhneš XML export. Až vše stáhneš, důkladně prosím promaž cloud.</p>
+            <p>
+              Hotovo. Výsledné obrázky najdeš v cloudu. Níže stáhneš XML export.
+              Poté cloud důk
+            </p>
             <Xml imagesList={imagesList} />
           </p>
         )}
@@ -110,13 +113,11 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
 export default Home;
 
 export async function getStaticProps() {
-  const options = {};
-  const hovno = await fetch(
+  const result = await fetch(
     'https://523148753456784:zViZFzElC6tcBUySsSctIs8c_z8@api.cloudinary.com/v1_1/dbzyb6wog/resources/image?&max_results=500"'
   ).then((r) => r.json());
-  hovno.secure_url;
 
-  const filteredData = hovno.resources.map((img: any) => {
+  const filteredData = result.resources.map((img: any) => {
     return { url: img.url, title: '', category: '' };
   });
 

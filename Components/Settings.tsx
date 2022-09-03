@@ -46,7 +46,7 @@ const Settings: React.FC<SettingsProps> = ({
           marginBottom: '40px',
         }}
       ></input>
-      {imagesList.map((img) => {
+      {imagesList?.map((img) => {
         return (
           <div
             key={img.url}
