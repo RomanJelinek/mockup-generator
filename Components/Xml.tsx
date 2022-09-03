@@ -11,32 +11,34 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
   let feedObj: any = [];
 
   if (imagesList.length > 0) {
-    for (let i = 0; i < imagesList.length; i++) {}
     imagesList.forEach((img) => {
+      let plaBlack = img?.images?.filter((img) => img?.imgType === 'plaBlack');
+      let plaWhite = img?.images?.filter((img) => img?.imgType === 'plaWhite');
       const obj = {
         SHOPITEM: {
-          '@id': img.url, //todo
-          NAME: { '#text': 'jméno' }, //todo
-          SHORT_DESCRIPTION: { '#text': 'Krátký popisek' }, //todo
+          '@id': img?.title,
+          NAME: { '#text': img?.title },
+          SHORT_DESCRIPTION: { '#text': img?.description },
           DESCRIPTION: { '#text': DESCRIPTION },
           MANUFACTURER: { '#text': 'Pixada' },
           ITEM_TYPE: { '#text': 'product' },
           UNIT: { '#text': 'ks' },
           IMAGES: {
-            IMAGE: { '#text': 'IMG' }, //todo
+            IMAGE: { '#text': plaBlack[0]?.url }, //todo
+            IMAGE2: { '#text': plaWhite[0]?.url }, //todo
           },
           CATEGORIES: {
-            CATEGORY: { '#text': 'Kategorie' }, //todo
+            CATEGORY: { '#text': img?.category },
           },
           VISIBILITY: { '#text': 'visible' },
-          SEO_TITLE: { '#text': 'SEO POPIS' }, //todo
-          META_DESCRIPTION: { '#text': 'META' }, //todo
+          SEO_TITLE: { '#text': img?.title },
+          META_DESCRIPTION: { '#text': img?.description },
           VARIANTS: {
             VARIANT: {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': 'ID/A3/PLA' }, // TODO
+              CODE: { '#text': `${img?.title}/A3/PLA` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -47,11 +49,11 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               PARAMETERS: {
                 VLASTNOST1: {
                   NAME: { '#text': 'Velikost' },
-                  VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
+                  VALUE: { '#text': 'A3 - 29,7x42 cm' },
                 },
                 VLASTNOST2: {
                   NAME: { '#text': 'Volba rámu' },
-                  VALUE: { '#text': 'plakát bez rámu' }, // CHANGES
+                  VALUE: { '#text': 'plakát bez rámu' },
                 },
               },
             },
@@ -59,7 +61,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': 'ID/A3/S' }, // TODO
+              CODE: { '#text': `${img?.title}/A3/S` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -67,15 +69,17 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
               VISIBLE: { '#text': 1 },
               FIRMY_CZ: { '#text': 1 },
-              IMAGE_REF: { '#text': 'image url' }, // TODO
+              IMAGE_REF: {
+                '#text': plaBlack[0]?.url,
+              }, // TODO
               PARAMETERS: {
                 VLASTNOST1: {
                   NAME: { '#text': 'Velikost' },
-                  VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
+                  VALUE: { '#text': 'A3 - 29,7x42 cm' },
                 },
                 VLASTNOST2: {
                   NAME: { '#text': 'Volba rámu' },
-                  VALUE: { '#text': 's černým rámem' }, // CHANGES
+                  VALUE: { '#text': 's černým rámem' },
                 },
               },
             },
@@ -83,23 +87,25 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': 'ID/A3/S2' }, // TODO
+              CODE: { '#text': `${img?.title}/A3/S2` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
               PRICE_VAT: { '#text': 699 },
               AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-              IMAGE_REF: { '#text': 'URL' }, // TODO
+              IMAGE_REF: {
+                '#text': plaWhite[0]?.url,
+              }, // TODO
               VISIBLE: { '#text': 1 },
               FIRMY_CZ: { '#text': 1 },
               PARAMETERS: {
                 VLASTNOST1: {
                   NAME: { '#text': 'Velikost' },
-                  VALUE: { '#text': 'A3 - 29,7x42 cm' }, // CHANGES
+                  VALUE: { '#text': 'A3 - 29,7x42 cm' },
                 },
                 VLASTNOST2: {
                   NAME: { '#text': 'Volba rámu' },
-                  VALUE: { '#text': 's bílým rámem' }, // CHANGES
+                  VALUE: { '#text': 's bílým rámem' },
                 },
               },
             },
@@ -107,7 +113,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': 'ID/B2/PLA' }, // TODO
+              CODE: { '#text': `${img?.title}/B2/PLA` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -118,11 +124,11 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               PARAMETERS: {
                 VLASTNOST1: {
                   NAME: { '#text': 'Velikost' },
-                  VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
+                  VALUE: { '#text': 'B2 - 50x70 cm' },
                 },
                 VLASTNOST2: {
                   NAME: { '#text': 'Volba rámu' },
-                  VALUE: { '#text': 'plakát bez rámu' }, // CHANGES
+                  VALUE: { '#text': 'plakát bez rámu' },
                 },
               },
             },
@@ -130,23 +136,25 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': 'ID/B2/S' }, // TODO
+              CODE: { '#text': `${img?.title}/B2/S` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
               PRICE_VAT: { '#text': 1049 },
               AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-              IMAGE_REF: { '#text': 'URL' }, //TODO
+              IMAGE_REF: {
+                '#text': `https://www.pixada.cz/user/documents/upload/`,
+              }, //TODO
               VISIBLE: { '#text': 1 },
               FIRMY_CZ: { '#text': 1 },
               PARAMETERS: {
                 VLASTNOST1: {
                   NAME: { '#text': 'Velikost' },
-                  VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
+                  VALUE: { '#text': 'B2 - 50x70 cm' },
                 },
                 VLASTNOST2: {
                   NAME: { '#text': 'Volba rámu' },
-                  VALUE: { '#text': 's černým rámem' }, // CHANGES
+                  VALUE: { '#text': 's černým rámem' },
                 },
               },
             },
@@ -154,23 +162,25 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': 'ID/B2/S2' }, // TODO
+              CODE: { '#text': `${img?.title}/B2/S2` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
               PRICE_VAT: { '#text': 1049 },
               AVAILABILITY_IN_STOCK: { '#text': 'Skladem' },
-              IMAGE_REF: { '#text': 'URL' }, //TODO
+              IMAGE_REF: {
+                '#text': `https://www.pixada.cz/user/documents/upload/`,
+              }, //TODO
               VISIBLE: { '#text': 1 },
               FIRMY_CZ: { '#text': 1 },
               PARAMETERS: {
                 VLASTNOST1: {
                   NAME: { '#text': 'Velikost' },
-                  VALUE: { '#text': 'B2 - 50x70 cm' }, // CHANGES
+                  VALUE: { '#text': 'B2 - 50x70 cm' },
                 },
                 VLASTNOST2: {
                   NAME: { '#text': 'Volba rámu' },
-                  VALUE: { '#text': 's bílým rámem' }, // CHANGES
+                  VALUE: { '#text': 's bílým rámem' },
                 },
               },
             },
@@ -181,7 +191,8 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
     });
   }
 
-  const feed = feedObj.length > 0 &&  builder.create(feedObj, { encoding: 'utf-8' });
+  const feed =
+    feedObj.length > 0 && builder.create(feedObj, { encoding: 'utf-8' });
 
   const xml = feedObj.length > 0 && feed.end({ pretty: true });
 
@@ -208,7 +219,9 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
     .split('VLASTNOST1')
     .join('PARAMETER')
     .split('VLASTNOST2')
-    .join('PARAMETER');
+    .join('PARAMETER')
+    .split('IMAGE2')
+    .join('IMAGE');
 
   const downloadXml = () => {
     var filename = 'file.xml';

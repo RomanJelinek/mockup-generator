@@ -1,7 +1,8 @@
 import axios from 'axios';
 import type { NextPage } from 'next';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Mockup1 } from '../Components/Mockup1';
+import { MockupPlaBlack } from '../Components/MockupPlaBlack';
+import { MockupPlaWhite } from '../Components/MockupPlaWhite';
 import Settings from '../Components/Settings';
 import Xml from '../Components/Xml';
 
@@ -9,43 +10,54 @@ export interface ImgData {
   url: string;
   title: string;
   category: string;
+  images: ImagesUrls[];
+  description: string;
+}
+
+interface ImagesUrls {
+  imgType: string;
+  url: string;
 }
 
 interface ImgDataProps {
   data: ImgData[];
 }
 
+enum Mockup {
+  PLA_BLACK = 'pla-black',
+  PLA_WHITE = 'pla-white',
+}
+
 const Home: NextPage<ImgDataProps> = () => {
   const [imagesList, setImagesList] = useState<ImgData[]>([]);
-  const [currentImg, setCurrentImg] = useState('');
+  const [currentImg, setCurrentImg] = useState(null);
   const [currentNumber, setCurrentNumber] = useState(0);
+  const [currentMockup, setCurrentMockup] = useState(Mockup.PLA_BLACK);
 
   useEffect(() => {
     const getProducts = async () => {
       const products = await axios.get('/api/get-images');
-      setImagesList(products.data)
+      setImagesList(products.data);
     };
-    getProducts()
+    getProducts();
   }, []);
 
   const delay = 3000;
-  const startUploading = () => {
+  const upload = async (mockup) => {
+    setCurrentMockup(mockup);
     for (let i = 0; i < imagesList.length; i++) {
-      task(i);
-    }
-    function task(i: number) {
       setTimeout(function () {
-        () => console.log(i);
-        setCurrentImg(imagesList[i].url);
+        setCurrentImg(imagesList[i]);
         setCurrentNumber(i);
       }, delay * i);
     }
+    setCurrentImg('');
   };
 
   const handleImagesListChange = (
     newImage: ImgData,
-    value: string,
-    changeType: string
+    changeType: string,
+    value: string
   ) => {
     let imagesListCopy = [...imagesList];
     const filteredResult = imagesList.find((img) => img.url === newImage.url);
@@ -56,25 +68,51 @@ const Home: NextPage<ImgDataProps> = () => {
     if (changeType === 'category') {
       imagesListCopy[Number(index)].category = value;
     }
+    if (changeType === 'images') {
+      imagesListCopy[Number(index)] = newImage;
+    }
     setImagesList(imagesListCopy);
+    console.log(imagesList);
   };
 
   const handleBulkChanges = (value: string, changeType: string) => {
-    let imagesListCopy: any = imagesList.map((img) => {
+    let imagesListCopy: ImgData[] = imagesList.map((img) => {
       if (changeType === 'title') {
         return { ...img, title: value };
       }
       if (changeType === 'category') {
         return { ...img, category: value };
       }
+      if (changeType === 'description') {
+        return { ...img, description: value };
+      }
     });
     setImagesList(imagesListCopy);
+  };
+
+  const getMockup = () => {
+    switch (currentMockup) {
+      case Mockup.PLA_BLACK:
+        return (
+          <MockupPlaBlack
+            image={currentImg}
+            handleImagesListChange={handleImagesListChange}
+          />
+        );
+      case Mockup.PLA_WHITE:
+        return (
+          <MockupPlaWhite
+            image={currentImg}
+            handleImagesListChange={handleImagesListChange}
+          />
+        );
+    }
   };
 
   return (
     <>
       <div style={{ display: 'flex' }}>
-        {<Mockup1 url={currentImg} />}
+        {getMockup()}
         {
           <Settings
             imagesList={imagesList}
@@ -94,13 +132,15 @@ const Home: NextPage<ImgDataProps> = () => {
         }}
       >
         <h4>Průvodce</h4>
-        {currentNumber === 0 && (
-          <>
-            <p>Aktuálně v cloudu: {imagesList?.length}</p>
-            <p>Nejdříve u všech položek vyplň vše potřebné</p>
-            <button onClick={startUploading}>Začni makat</button>
-          </>
-        )}
+        <>
+          <p>Aktuálně v cloudu: {imagesList?.length}</p>
+          <p>Nejdříve u všech položek vyplň vše potřebné</p>
+          <button onClick={() => upload(Mockup.PLA_BLACK)}>
+            PLA černý rám
+          </button>
+          <button onClick={() => upload(Mockup.PLA_WHITE)}>PLA bílý rám</button>
+        </>
+
         {currentNumber > 0 && currentNumber + 1 < imagesList?.length && (
           <p>
             Probíhá příprava mockupů...{currentNumber + 1}/{imagesList?.length}

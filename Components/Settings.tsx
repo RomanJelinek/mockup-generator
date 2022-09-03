@@ -24,7 +24,10 @@ const Settings: React.FC<SettingsProps> = ({
       <h3>Nastavení exportu</h3>
       Hromadné vložení do nadpisů
       <input
-        onChange={(e) => handleBulkChanges(e.target.value, 'title')}
+        onChange={(e) => {
+          e.preventDefault();
+          handleBulkChanges(e.target.value, 'title');
+        }}
         type="text"
         style={{
           height: '25px',
@@ -33,7 +36,9 @@ const Settings: React.FC<SettingsProps> = ({
       ></input>
       <br />
       Hromadné vložení kategorií <br />
-      <i style={{fontSize: "12px", margin: "4px 0"}}>(formát: Plakáty {'>'} Motivační obrazy a plakáty ) </i>
+      <i style={{ fontSize: '12px', margin: '4px 0' }}>
+        (formát: Plakáty {'>'} Motivační obrazy a plakáty ){' '}
+      </i>
       <input
         onChange={(e) => {
           e.preventDefault();
@@ -46,14 +51,31 @@ const Settings: React.FC<SettingsProps> = ({
           marginBottom: '40px',
         }}
       ></input>
+      <br />
+      Krátký popisek
+      <br />
+      <i style={{ fontSize: '12px', margin: '4px 0' }}>
+        Vždy je nadpis produktu a následuje text níže:
+      </i>
+      <textarea
+        rows={4}
+        cols={50}
+        onChange={(e) => {
+          e.preventDefault();
+          handleBulkChanges(e.target.value, 'description');
+        }}
+        style={{
+          width: '300px',
+          marginBottom: '40px',
+        }}
+      ></textarea>
       {imagesList?.map((img) => {
         return (
           <div
-            key={img.url}
+            key={img?.url}
             style={{
               display: 'flex',
-              margin: "10px",
-          
+              margin: '10px',
             }}
           >
             <div style={{ marginTop: '20px', marginRight: '10px' }}>
@@ -62,9 +84,9 @@ const Settings: React.FC<SettingsProps> = ({
               <input
                 onChange={(e) => {
                   e.preventDefault();
-                  handleImagesListChange(img, e.target.value, 'title');
+                  handleImagesListChange(img, 'title', e.target.value);
                 }}
-                value={img.title}
+                value={img?.title}
                 type="text"
                 style={{
                   height: '25px',
@@ -76,9 +98,9 @@ const Settings: React.FC<SettingsProps> = ({
               <br />
               <input
                 onChange={(e) =>
-                  handleImagesListChange(img, e.target.value, 'category')
+                  handleImagesListChange(img, 'category', e.target.value)
                 }
-                value={img.category}
+                value={img?.category}
                 type="text"
                 style={{
                   height: '25px',
@@ -87,7 +109,7 @@ const Settings: React.FC<SettingsProps> = ({
               ></input>
             </div>
             <img
-              src={img.url}
+              src={img?.url}
               style={{ width: '100px', height: 'auto', marginTop: '10px' }}
             />
           </div>
