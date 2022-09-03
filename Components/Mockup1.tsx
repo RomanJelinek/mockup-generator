@@ -9,7 +9,7 @@ export const Mockup1: React.FC<any> = ({ url }) => {
   const [currentImage, setCurrentImage] = useState('');
 
   useEffect(() => {
-   url && onButtonClick();
+    url && onButtonClick();
   }, [url]);
 
   const onButtonClick = React.useCallback(async () => {
@@ -17,11 +17,12 @@ export const Mockup1: React.FC<any> = ({ url }) => {
       return;
     }
     const data = await toJpeg(ref.current, { cacheBust: true });
-    const img = await sendImg(data)
+    const img = await sendImg(data);
+    console.log(img);
   }, [ref]);
 
   return (
-    <div style={{display: "flex", flex: "3"}}>
+    <div style={{ display: 'flex', flex: '3' }}>
       <div ref={ref} style={{ height: '600px', width: '532px' }}>
         <img
           src="/img/mockups/mockup1black.png"
@@ -43,21 +44,26 @@ export const Mockup1: React.FC<any> = ({ url }) => {
           src={url}
         ></img>
       </div>
+      <button onClick={() => onButtonClick()}>hovmo</button>
     </div>
   );
 };
 
 export const sendImg = async (img: string) => {
-  const formData = new FormData();
-  formData.append('file', img);
-  formData.append('upload_preset', 'mockups');
+  try {
+    const formData = new FormData();
+    formData.append('file', img);
+    formData.append('upload_preset', 'mockups');
 
-  const data = await fetch(
-    'https://api.cloudinary.com/v1_1/dbzyb6wog/image/upload',
-    {
-      method: 'POST',
-      body: formData,
-    }
-  ).then((r) => r.json());
-  return data.secure_url;
+    const data = await fetch(
+      'https://api.cloudinary.com/v1_1/dbzyb6wog/image/upload',
+      {
+        method: 'POST',
+        body: formData,
+      }
+    ).then((r) => r.json());
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };
