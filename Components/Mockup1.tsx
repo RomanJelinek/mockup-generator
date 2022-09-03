@@ -1,6 +1,6 @@
 import { toPng, toJpeg } from 'html-to-image';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export interface IAppProps {}
 
@@ -12,14 +12,23 @@ export const Mockup1: React.FC<any> = ({ url }) => {
     url && onButtonClick();
   }, [url]);
 
-  const onButtonClick = React.useCallback(async () => {
-    if (ref.current === null) {
-      return;
-    }
-    const data = await toJpeg(ref.current, { cacheBust: true });
-    const img = await sendImg(data);
-    console.log(img);
-  }, [ref]);
+   const onButtonClick = useCallback(() => {
+     if (ref.current === null) {
+       return;
+     }
+
+     toJpeg(ref.current, { cacheBust: true })
+       .then((dataUrl) => {
+         const link = document.createElement('a');
+         link.download = 'my-image-name.jpg';
+         link.href = dataUrl;
+         link.click();
+       })
+       .catch((err) => {
+         console.log(err);
+       });
+   }, [ref]);
+   
 
   return (
     <div style={{ display: 'flex', flex: '3' }}>
