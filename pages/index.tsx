@@ -112,7 +112,7 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const result = await fetch(
     'https://523148753456784:zViZFzElC6tcBUySsSctIs8c_z8@api.cloudinary.com/v1_1/dbzyb6wog/resources/image?&max_results=500"'
   ).then((r) => r.json());
