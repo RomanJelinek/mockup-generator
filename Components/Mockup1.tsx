@@ -50,10 +50,10 @@ export const Mockup1: React.FC<any> = ({ url }) => {
 export const sendImg = async (img: string) => {
   const formData = new FormData();
   formData.append('file', img);
-  formData.append('upload_preset', 'starmap');
+  formData.append('upload_preset', 'mockups');
 
   const data = await fetch(
-    'https://api.cloudinary.com/v1_1/dlwz2y4wk/image/upload',
+    'https://api.cloudinary.com/v1_1/dbzyb6wog/image/upload',
     {
       method: 'POST',
       body: formData,
@@ -61,4 +61,3 @@ export const sendImg = async (img: string) => {
   ).then((r) => r.json());
   return data.secure_url;
 };
-
