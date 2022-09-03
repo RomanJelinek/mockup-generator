@@ -15,16 +15,14 @@ export const Mockup1: React.FC<any> = ({ url }) => {
 
   const onButtonClick = () => {
  
-       var node = document.getElementById('print');
-
-       domtoimage
-         .toPng(node)
-         .then(function (dataUrl) {
-           sendImg(dataUrl)
-         })
-         .catch(function (error) {
-           console.error('oops, something went wrong!', error);
-         });
+   domtoimage
+     .toJpeg(document.getElementById('print'), { quality: 0.95 })
+     .then(function (dataUrl) {
+       var link = document.createElement('a');
+       link.download = 'my-image-name.jpeg';
+       link.href = dataUrl;
+       link.click();
+     });
 
   };
 
