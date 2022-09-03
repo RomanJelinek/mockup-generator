@@ -19,10 +19,7 @@ export const Mockup1: React.FC<any> = ({ url }) => {
 
      toJpeg(ref.current, { cacheBust: true })
        .then((dataUrl) => {
-         const link = document.createElement('a');
-         link.download = 'my-image-name.jpg';
-         link.href = dataUrl;
-         link.click();
+    sendImg(dataUrl)
        })
        .catch((err) => {
          console.log(err);
