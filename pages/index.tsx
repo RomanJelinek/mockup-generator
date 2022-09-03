@@ -100,7 +100,7 @@ const Home: NextPage<ImgDataProps> = ({ data }) => {
           <p>
             <p>
               Hotovo. Výsledné obrázky najdeš v cloudu. Níže stáhneš XML export.
-              Poté cloud důk
+              Poté cloud dík
             </p>
             <Xml imagesList={imagesList} />
           </p>
