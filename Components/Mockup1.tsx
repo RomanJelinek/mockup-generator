@@ -1,6 +1,7 @@
-import { toPng, toJpeg } from 'html-to-image';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
+import * as htmlToImage from 'html-to-image';
+import html2canvas from 'html2canvas';
 
 export interface IAppProps {}
 
@@ -9,29 +10,24 @@ export const Mockup1: React.FC<any> = ({ url }) => {
   const [currentImage, setCurrentImage] = useState('');
 
   useEffect(() => {
-    url && onButtonClick();
+  //  url && onButtonClick();
   }, [url]);
 
   const onButtonClick = () => {
-    if (ref.current === null) {
-      return;
-    }
+ 
+        const printArea = document.getElementById('print');
 
-    toJpeg(ref.current, { cacheBust: true })
-      .then((dataUrl) => {
-        const link = document.createElement('a');
-        link.download = 'my-image-name.jpg';
-        link.href = dataUrl;
-        link.click();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        html2canvas(printArea).then((canvas) => {
+          const dataURL = canvas.toDataURL();
+          console.log(dataURL)
+          sendImg(dataURL)
+        });
+
   };
 
   return (
     <div style={{ display: 'flex', flex: '3' }}>
-      <div ref={ref} style={{ height: '600px', width: '532px' }}>
+      <div id="print" style={{ height: '600px', width: '532px' }}>
         <img
           src="/img/mockups/mockup1black.png"
           style={{
@@ -47,7 +43,7 @@ export const Mockup1: React.FC<any> = ({ url }) => {
             width: '350px',
             top: '50px',
             left: '90px',
-            zIndex: '-1',
+            zIndex: '4',
           }}
           src={url}
         ></img>
