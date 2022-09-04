@@ -5,14 +5,12 @@ interface SettingsProps {
   imagesList: ImgData[];
   handleImagesListChange: Function;
   handleBulkChanges: Function;
-  finishedMockups
 }
 
 const Settings: React.FC<SettingsProps> = ({
   imagesList,
   handleImagesListChange,
   handleBulkChanges,
-  finishedMockups,
 }) => {
   return (
     <div
