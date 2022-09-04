@@ -24,7 +24,7 @@ export const MockupDesign1: React.FC<Design1Props> = ({
     if (ref.current === null) {
       return;
     }
-    toJpeg(ref.current, { quality: 0.6 })
+    toJpeg(ref.current, { quality: 0.9 })
       .then((dataUrl) => {
         sendImg(dataUrl);
       })
