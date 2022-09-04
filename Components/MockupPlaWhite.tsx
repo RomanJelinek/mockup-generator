@@ -1,16 +1,18 @@
 import { toPng, toJpeg } from 'html-to-image';
 import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { ImgData } from '../pages';
+import { ImgData, Mockup } from '../pages';
 
-export interface MockupPlaBlackProps {
+export interface MockupPlaWhiteProps {
   image: ImgData;
   handleImagesListChange: Function;
+  folderName: string;
 }
 
-export const MockupPlaWhite: React.FC<any> = ({
+export const MockupPlaWhite: React.FC<MockupPlaWhiteProps> = ({
   image,
   handleImagesListChange,
+  folderName,
 }) => {
   const ref = React.useRef<HTMLDivElement>(null);
 
@@ -35,10 +37,12 @@ export const MockupPlaWhite: React.FC<any> = ({
       const formData = new FormData();
       formData.append('file', img);
       formData.append('upload_preset', 'mockups');
-      formData.append('tags', `plaWhite---${image.url}`);
+      formData.append('tags', `${Mockup.PLA_WHITE}---${image.url}`);
+      formData.append('folder', folderName);
+
 
       const data = await fetch(
-        'https://api.cloudinary.com/v1_1/dbzyb6wog/image/upload',
+        'https://api.cloudinary.com/v1_1/dlwz2y4wk/image/upload',
         {
           method: 'POST',
           body: formData,
@@ -60,7 +64,7 @@ export const MockupPlaWhite: React.FC<any> = ({
     <div style={{ display: 'flex', flex: '3' }}>
       <div ref={ref} style={{ height: '600px', width: '532px' }}>
         <img
-          src="/img/mockups/mockup1white.png"
+          src="/img/mockups/mockup2white.png"
           style={{
             width: 'auto',
             height: '600px',
@@ -71,8 +75,9 @@ export const MockupPlaWhite: React.FC<any> = ({
         <img
           style={{
             position: 'relative',
-            width: '350px',
-            top: '50px',
+            width: '346px',
+            height: '499px',
+            top: '41px',
             left: '90px',
             zIndex: '-1',
           }}

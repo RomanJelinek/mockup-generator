@@ -3,13 +3,13 @@ import * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { ImgData, Mockup } from '../pages';
 
-export interface MockupPlaBlackProps {
+export interface Design1Props {
   image: ImgData;
   handleImagesListChange: Function;
   folderName: string;
 }
 
-export const MockupPlaBlack: React.FC<MockupPlaBlackProps> = ({
+export const MockupDesign1: React.FC<Design1Props> = ({
   image,
   handleImagesListChange,
   folderName,
@@ -37,7 +37,7 @@ export const MockupPlaBlack: React.FC<MockupPlaBlackProps> = ({
       const formData = new FormData();
       formData.append('file', img);
       formData.append('upload_preset', 'mockups');
-      formData.append('tags', `${Mockup.PLA_BLACK}---${image.url}`);
+      formData.append('tags', `${Mockup.DESIGN1}---${image.url}`);
       formData.append('folder', folderName);
 
       const data = await fetch(
@@ -63,10 +63,10 @@ export const MockupPlaBlack: React.FC<MockupPlaBlackProps> = ({
     <div style={{ display: 'flex', flex: '3' }}>
       <div ref={ref} style={{ height: '600px', width: '532px' }}>
         <img
-          src="/img/mockups/mockup2black.png"
+          src="/img/mockups/Design1.png"
           style={{
             width: 'auto',
-            height: '600px',
+            height: '420px',
             position: 'absolute',
             zIndex: '1',
           }}
@@ -74,10 +74,10 @@ export const MockupPlaBlack: React.FC<MockupPlaBlackProps> = ({
         <img
           style={{
             position: 'relative',
-            width: '346px',
-            height: '499px',
-            top: '49px',
-            left: '92px',
+            width: '205px',
+            height: '274px',
+            top: '30px',
+            left: '235px',
             zIndex: '-1',
           }}
           src={image?.url}

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import type { NextPage } from 'next';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { MockupDesign1 } from '../Components/MockupDesign1';
+import { MockupDesign2 } from '../Components/MockupDesign2';
 import { MockupPlaBlack } from '../Components/MockupPlaBlack';
 import { MockupPlaWhite } from '../Components/MockupPlaWhite';
 import Settings from '../Components/Settings';
@@ -23,9 +25,11 @@ interface ImgDataProps {
   data: ImgData[];
 }
 
-enum Mockup {
-  PLA_BLACK = 'pla-black',
-  PLA_WHITE = 'pla-white',
+export enum Mockup {
+  PLA_BLACK = 'plaBlack',
+  PLA_WHITE = 'plaWhite',
+  DESIGN1 = 'design1',
+  DESIGN2 = 'design2',
 }
 
 const Home: NextPage<ImgDataProps> = () => {
@@ -33,8 +37,18 @@ const Home: NextPage<ImgDataProps> = () => {
   const [currentImg, setCurrentImg] = useState(null);
   const [currentNumber, setCurrentNumber] = useState(0);
   const [currentMockup, setCurrentMockup] = useState(Mockup.PLA_BLACK);
+  const [folderName, setFolderName] = useState(null);
+  const [finishedMockups, setFinishedMockups] = useState({
+    [Mockup.PLA_BLACK]: false,
+    [Mockup.PLA_WHITE]: false,
+    [Mockup.DESIGN1]: false,
+    [Mockup.DESIGN2]: false,
+  });
 
   useEffect(() => {
+    const date = new Date();
+    const id = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate() }/${date.getHours()}:${date.getMinutes()}`;
+    setFolderName(id)
     const getProducts = async () => {
       const products = await axios.get('/api/get-images');
       setImagesList(products.data);
@@ -72,7 +86,6 @@ const Home: NextPage<ImgDataProps> = () => {
       imagesListCopy[Number(index)] = newImage;
     }
     setImagesList(imagesListCopy);
-    console.log(imagesList);
   };
 
   const handleBulkChanges = (value: string, changeType: string) => {
@@ -97,6 +110,7 @@ const Home: NextPage<ImgDataProps> = () => {
           <MockupPlaBlack
             image={currentImg}
             handleImagesListChange={handleImagesListChange}
+            folderName={folderName}
           />
         );
       case Mockup.PLA_WHITE:
@@ -104,6 +118,23 @@ const Home: NextPage<ImgDataProps> = () => {
           <MockupPlaWhite
             image={currentImg}
             handleImagesListChange={handleImagesListChange}
+            folderName={folderName}
+          />
+        );
+      case Mockup.DESIGN1:
+        return (
+          <MockupDesign1
+            image={currentImg}
+            handleImagesListChange={handleImagesListChange}
+            folderName={folderName}
+          />
+        );
+      case Mockup.DESIGN2:
+        return (
+          <MockupDesign2
+            image={currentImg}
+            handleImagesListChange={handleImagesListChange}
+            folderName={folderName}
           />
         );
     }
@@ -134,11 +165,40 @@ const Home: NextPage<ImgDataProps> = () => {
         <h4>Průvodce</h4>
         <>
           <p>Aktuálně v cloudu: {imagesList?.length}</p>
-          <p>Nejdříve u všech položek vyplň vše potřebné</p>
-          <button onClick={() => upload(Mockup.PLA_BLACK)}>
+          <p>
+            Nejdříve u všech položek vyplň vše potřebné. Poté začni generovat
+            mockupy kliknutím na tlačítka níže.
+          </p>
+          <button
+            disabled={finishedMockups.plaBlack}
+            onClick={() => upload(Mockup.PLA_BLACK)}
+          >
             PLA černý rám
           </button>
-          <button onClick={() => upload(Mockup.PLA_WHITE)}>PLA bílý rám</button>
+          {finishedMockups.plaBlack && <>✅</>}
+          <button
+            disabled={finishedMockups.plaWhite}
+            onClick={() => upload(Mockup.PLA_WHITE)}
+          >
+            PLA bílý rám
+          </button>
+          {finishedMockups.plaWhite && <>✅</>}
+          <br />
+          <button
+            disabled={finishedMockups.design1}
+            onClick={() => upload(Mockup.DESIGN1)}
+          >
+            Design 1
+          </button>
+          {finishedMockups.design1 && <>✅</>}
+          <br />
+          <button
+            disabled={finishedMockups.design2}
+            onClick={() => upload(Mockup.DESIGN2)}
+          >
+            Design 2
+          </button>
+          {finishedMockups.design2 && <>✅</>}
         </>
 
         {currentNumber > 0 && currentNumber + 1 < imagesList?.length && (
