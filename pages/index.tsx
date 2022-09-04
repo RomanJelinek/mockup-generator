@@ -38,7 +38,12 @@ const Home: NextPage<ImgDataProps> = () => {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [currentMockup, setCurrentMockup] = useState(Mockup.PLA_BLACK);
   const [folderName, setFolderName] = useState(null);
-  const [finishedMockups, setFinishedMockups] = useState<any>({
+  const [finishedMockups, setFinishedMockups] = useState<{
+    [Mockup.PLA_BLACK]: boolean;
+    [Mockup.PLA_WHITE]: boolean;
+    [Mockup.DESIGN1]: boolean;
+    [Mockup.DESIGN2]: boolean;
+  }>({
     [Mockup.PLA_BLACK]: false,
     [Mockup.PLA_WHITE]: false,
     [Mockup.DESIGN1]: false,
@@ -70,7 +75,7 @@ const Home: NextPage<ImgDataProps> = () => {
     setCurrentImg('');
     setFinishedMockups({ ...finishedMockups, [mockup]: true });
   };
-  console.log(finishedMockups)
+  console.log(finishedMockups);
 
   const handleImagesListChange = (
     newImage: ImgData,
