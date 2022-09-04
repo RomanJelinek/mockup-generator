@@ -24,7 +24,7 @@ export const MockupPlaWhite: React.FC<MockupPlaWhiteProps> = ({
     if (ref.current === null) {
       return;
     }
-    toJpeg(ref.current, { quality: 0.1 })
+    toJpeg(ref.current, { quality: 0.6 })
       .then((dataUrl) => {
         sendImg(dataUrl);
       })
