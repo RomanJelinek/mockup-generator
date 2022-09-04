@@ -3,13 +3,14 @@ import NextCors from 'nextjs-cors';
 
 const handler = async (req: any, res: any) => {
   const result = await fetch(
-    `https://api.cloudinary.com/v1_1/${process.env.NAME_URL}/resources/image`,
+    `https://api.cloudinary.com/v1_1/${process.env.NAME_URL}/resources/image?&max_results=500`,
     {
       method: 'get',
       headers: {
         Authorization:
           'Basic ' +
           nextBase64.encode(process.env.API_KEY + ':' + process.env.SECRET_KEY),
+        maxResults: '500',
       },
     }
   ).then((res) => res.json());
