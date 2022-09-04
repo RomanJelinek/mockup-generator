@@ -47,8 +47,10 @@ const Home: NextPage<ImgDataProps> = () => {
 
   useEffect(() => {
     const date = new Date();
-    const id = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate() }/${date.getHours()}:${date.getMinutes()}`;
-    setFolderName(id)
+    const id = `${date.getFullYear()}/${
+      date.getMonth() + 1
+    }/${date.getDate()}/${date.getHours()}:${date.getMinutes()}`;
+    setFolderName(id);
     const getProducts = async () => {
       const products = await axios.get('/api/get-images');
       setImagesList(products.data);
@@ -66,7 +68,9 @@ const Home: NextPage<ImgDataProps> = () => {
       }, delay * i);
     }
     setCurrentImg('');
+    setFinishedMockups({ ...finishedMockups, [mockup]: true });
   };
+  console.log(finishedMockups)
 
   const handleImagesListChange = (
     newImage: ImgData,
