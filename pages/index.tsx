@@ -38,7 +38,7 @@ const Home: NextPage<ImgDataProps> = () => {
   const [currentNumber, setCurrentNumber] = useState(0);
   const [currentMockup, setCurrentMockup] = useState(Mockup.PLA_BLACK);
   const [folderName, setFolderName] = useState(null);
-  const [finishedMockups, setFinishedMockups] = useState({
+  const [finishedMockups, setFinishedMockups] = useState<any>({
     [Mockup.PLA_BLACK]: false,
     [Mockup.PLA_WHITE]: false,
     [Mockup.DESIGN1]: false,
