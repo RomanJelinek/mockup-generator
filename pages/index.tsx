@@ -193,13 +193,13 @@ const Home: NextPage<ImgDataProps> = () => {
           </button>
           {finishedMockups.plaWhite && <>✅</>}
           <br />
-          {/* <button
+          <button
             disabled={finishedMockups.design1}
             onClick={() => upload(Mockup.DESIGN1)}
           >
             Design 1
           </button>
-          {finishedMockups.design1 && <>✅</>} */}
+          {finishedMockups.design1 && <>✅</>}
           <br />
           <button
             disabled={finishedMockups.design2}

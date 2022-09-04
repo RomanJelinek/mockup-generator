@@ -28,7 +28,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
         SHOPITEM: {
           '@id': img?.title,
           NAME: { '#text': img?.title },
-          SHORT_DESCRIPTION: { '#text': `${img?.title} ${img?.description}` },
+          SHORT_DESCRIPTION: { '#text': `${img?.description} ${img?.description}`},
           DESCRIPTION: { '#text': DESCRIPTION },
           MANUFACTURER: { '#text': 'Pixada' },
           ITEM_TYPE: { '#text': 'product' },
@@ -50,7 +50,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': `Obraz/A3/PLA` },
+              CODE: { '#text': `${img?.title}/A3/PLA` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -73,7 +73,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': `Obraz/A3/S` },
+              CODE: { '#text': `${img?.title}/A3/S` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -99,7 +99,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': `Obraz/A3/S2` },
+              CODE: { '#text': `${img?.title}/A3/S2` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -125,7 +125,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': `Obraz/B2/PLA` },
+              CODE: { '#text': `${img?.title}/B2/PLA` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -148,7 +148,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': `Obraz/B2/S` },
+              CODE: { '#text': `${img?.title}/B2/S` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
@@ -174,7 +174,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
               STOCK: {
                 AMOUNT: { '#text': 1000 },
               },
-              CODE: { '#text': `Obraz/B2/S2` },
+              CODE: { '#text': `${img?.title}/B2/S2` },
               WEIGHT: { '#text': 1 },
               CURRENCY: { '#text': 'CZK' },
               VAT: { '#text': 21 },
