@@ -28,7 +28,7 @@ const Xml: React.FC<XmlProps> = ({ imagesList }) => {
         SHOPITEM: {
           '@id': img?.title,
           NAME: { '#text': img?.title },
-          SHORT_DESCRIPTION: { '#text': img?.description },
+          SHORT_DESCRIPTION: { '#text': `${img?.title} ${img?.description}`},
           DESCRIPTION: { '#text': DESCRIPTION },
           MANUFACTURER: { '#text': 'Pixada' },
           ITEM_TYPE: { '#text': 'product' },
